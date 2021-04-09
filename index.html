@@ -77,11 +77,11 @@ th, td {
 			<tr>
 			   <th>Beam Length (in mm)</th>
 			   	<td>
-			   		<input type="number" id="length" name="length" value="200">
+			   		<input type="number" id="length" name="length" value="2000">
 					</td>
 			</tr>
 			<tr>
-				<th>End Mass</th>
+				<th>End Mass (in kg)</th>
 				<td>
 					<input type="number" id="end_mass" name="end_mass"  value="25">
 			   	</td>
@@ -90,10 +90,10 @@ th, td {
 			 <th>Cross Section Type</th>
 			   <td>
 			   	<select name="cstype" id="cstype" onclick="changeIX_Area()">
-					   <option value="circular">circular</option>
-					   <option value="square">square</option>
+					   <option value="circular">Circular</option>
+					   <option value="square">Square</option>
              			<option value="T Section">T Section</option>
-             			<option value="Other">Other</option>
+             			<option value="Other">Other Section</option>
 					</select>
 					<br/>
 					<span id="ixlabel"></span><br/>
@@ -114,7 +114,7 @@ th, td {
 			   	<input type="radio" id="Steel" name="Material" value="Steel" checked="true">
 					<label for="Steel">Steel</label><br>
 					<input type="radio" id="Aluminium" name="Material" value="Aluminium">
-					<label for="Aluminium">Aluminium</label>
+					<label for="Aluminium">Aluminium</label><br>
 					<input type="radio" id="Copper" name="Material" value="Copper">
 					<label for="Copper">Copper</label><br>
 			   	</td>
@@ -131,15 +131,15 @@ th, td {
 
 <div id="result" style="display: none;">
   <div class="w3-container w3-black w3-center w3-opacity w3-padding-64" style="color: white">
-  	<h2><b>Results</b></h2>
-  	<h3>Natural Circular frequency [Wn] = <span id="natural_circular_freq"></span> rad/s</h3>
-  	<h3>Damped Circular frequency [Wd] = <span id="damped_circular_freq"></span> rad/s</h3>
+  	<h2><b>RESULTS</b></h2>
+  	<h3>Natural Circular Frequency [&#969;<sub>n</sub>] = <span id="natural_circular_freq"></span> rad/s</h3>
+  	<h3>Damped Circular Frequency [&#969;<sub>d</sub>] = <span id="damped_circular_freq"></span> rad/s</h3>
   	<h3>Damping Ratio [ζ] = <span id="damping_ratio"></span></h3>
-  	<h3>Critical damping [Cc] = <span id="critical_damping"></span> Ns/m</h3>
+  	<h3>Critical Damping [Cc] = <span id="critical_damping"></span> Ns/m</h3>
     <h3>Damping Coefficient [C] = <span id="damping_coefficient"></span> Ns/m</h3>
     <h3>Stiffness [k] = <span id="stiff_ness"></span> N/m</h3>
-    <h3>Logarithmic Decrement [delta] = <span id="log_dec"></span></h3>
-    <h3>Effective Mass (Meff) = <span id="effec_mass"></span> kg</h3>
+    <h3>Logarithmic Decrement [&#948;] = <span id="log_dec"></span></h3>
+    <h3>Effective Mass (M<sub>eff</sub>) = <span id="effec_mass"></span> kg</h3>
   </div>
   
   
@@ -163,9 +163,9 @@ th, td {
 	    	y=document.getElementById("area")
 	    	if (x.style.display === "none" && y.style.display==='none') {
 			    x.style.display = "block";
-			    document.getElementById("ixlabel").innerHTML="Enter Ixx (m^4)";
+			    document.getElementById("ixlabel").innerHTML="Enter the value of<br> I<sub>xx</sub> (m<sup>4</sup>)";
 			    y.style.display = "block";
-			    document.getElementById("arealabel").innerHTML="C/s Area(m^2)";
+			    document.getElementById("arealabel").innerHTML="C/s Area (m<sup>2</sup>)";
 			  } else {
 			    x.style.display = "none";
 			    y.style.display = "none";
