@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="49244e99-7e0f-45cc-8145-6cb4eaa471c8" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1YtstyOmWn7ICSN53uUJjSMKILR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../morenew.html" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="49244e99-7e0f-45cc-8145-6cb4eaa471c8" name="Default Changelist" comment="" />
+      <created>1583773443662</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583773443662</updated>
+      <workItem from="1583773446655" duration="1997000" />
+      <workItem from="1583844689387" duration="17028000" />
+      <workItem from="1583946113281" duration="1538000" />
+      <workItem from="1584104253224" duration="13756000" />
+      <workItem from="1584156450541" duration="4496000" />
+      <workItem from="1584335052389" duration="21443000" />
+      <workItem from="1584374719213" duration="10715000" />
+      <workItem from="1584428524083" duration="7422000" />
+      <workItem from="1584447352570" duration="4305000" />
+      <workItem from="1584510198925" duration="7880000" />
+      <workItem from="1584531794659" duration="1137000" />
+      <workItem from="1617081052898" duration="432000" />
+      <workItem from="1617514466136" duration="23000" />
+      <workItem from="1617615612754" duration="601000" />
+      <workItem from="1617725249222" duration="611000" />
+      <workItem from="1617735994170" duration="21000" />
+      <workItem from="1617778567270" duration="1494000" />
+      <workItem from="1617906234290" duration="898000" />
+      <workItem from="1617915269320" duration="168000" />
+      <workItem from="1617946523285" duration="31887000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1617986803711">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1617986803711" />
+  </component>
+</project>
