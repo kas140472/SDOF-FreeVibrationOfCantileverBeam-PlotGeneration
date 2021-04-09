@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>SDOF Vibration Calculator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script>Chart.defaults.global.elements.rectangle.borderWidth = 2;</script>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: Tahoma, sans-serif;}
+
+.w3-bar,h1,button {font-family: Tahoma, sans-serif}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.bgcolor {background-color:#FF8C00;
+} 
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+
+@media only screen and (max-width:800px) {
+  /* For tablets: */
+  .main {
+    width: 80%;
+    padding: 0;
+  }
+  .right {
+    width: 100%;
+  }
+}
+@media only screen and (max-width:500px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width: 100%;
+  }
+
+}
+</style>
+
+
+<body>
+
+<header style="padding:20px 16px; background-color: #191970; text-align: center; color: white">
+  <h2 class="w3-margin w3-jumbo">Single Degree of Freedom Systems (SDOF) - Free Vibration of Cantilever Beam</h2>
+</header>
+
+<div style= "margin-left: 10px">
+   <h2> Project submitted by: </h2>
+  <ul>
+  <li>Aditya Shrikhande - 181ME204</li>
+  <li>Drishika Nadella - 181ME222</li>
+  <li>Johns Jaison - 181ME234</li>
+  <li>Kriti Shukla - 181ME239</li>
+  <li>Liz George - 181ME241</li>
+</ul>
+</div>
+
+<div class="w3-row-padding w3-white w3-padding-64 w3-container">
+  <div class="w3-content">
+      <h1><b>Enter the following input parameters.</b></h1>
+      <h4 class="w3-padding-32">
+      	<table style="width:100%">
+        	<tr>
+          <th class= "bgcolor"><b>Parameter</b></th>
+            <th class= "bgcolor">Value</th>
+        	</tr>
+			<tr>
+			   <th>Beam Length (in mm)</th>
+			   	<td>
+			   		<input type="number" id="length" name="length" value="200">
+					</td>
+			</tr>
+			<tr>
+				<th>End Mass</th>
+				<td>
+					<input type="number" id="end_mass" name="end_mass"  value="25">
+			   	</td>
+			</tr>
+			<tr>
+			 <th>Cross Section Type</th>
+			   <td>
+			   	<select name="cstype" id="cstype" onclick="changeIX_Area()">
+					   <option value="circular">circular</option>
+					   <option value="square">square</option>
+             			<option value="T Section">T Section</option>
+             			<option value="Other">Other</option>
+					</select>
+					<br/>
+					<span id="ixlabel"></span><br/>
+             		<input style="display: none" type="number" id="ix" name="ix" >
+             		<span id="arealabel"></span><br/>
+             		<input style="display: none" type="number" id="area" name="area">
+			   	</td>
+			</tr>
+			<tr>
+			   <th>Damping ratio [ζ] (between 0 and 0.5)</th>
+			   	<td>
+			   		<input type="number" id="damping_factor" name="damping_factor" value="0.10">
+			   	</td>
+			</tr>
+			<tr>
+			   <th>Material</th>
+			   	<td>
+			   	<input type="radio" id="Steel" name="Material" value="Steel" checked="true">
+					<label for="Steel">Steel</label><br>
+					<input type="radio" id="Aluminium" name="Material" value="Aluminium">
+					<label for="Aluminium">Aluminium</label>
+					<input type="radio" id="Copper" name="Material" value="Copper">
+					<label for="Copper">Copper</label><br>
+			   	</td>
+			</tr>
+		</table>
+      </h4>
+      <button class="w3-button w3-blue w3-padding-large w3-large w3-margin-top" onclick="showResult()" id="button">Calculate</button>
+  </div>
+</div>
+
+<div>
+    <canvas class="test"></canvas>
+</div>
+
+<div id="result" style="display: none;">
+  <div class="w3-container w3-black w3-center w3-opacity w3-padding-64" style="color: white">
+  	<h2><b>Results</b></h2>
+  	<h3>Natural Circular frequency [Wn] = <span id="natural_circular_freq"></span> rad/s</h3>
+  	<h3>Damped Circular frequency [Wd] = <span id="damped_circular_freq"></span> rad/s</h3>
+  	<h3>Damping Ratio [ζ] = <span id="damping_ratio"></span></h3>
+  	<h3>Critical damping [Cc] = <span id="critical_damping"></span> Ns/m</h3>
+    <h3>Damping Coefficient [C] = <span id="damping_coefficient"></span> Ns/m</h3>
+    <h3>Stiffness [k] = <span id="stiff_ness"></span> N/m</h3>
+    <h3>Logarithmic Decrement [delta] = <span id="log_dec"></span></h3>
+    <h3>Effective Mass (Meff) = <span id="effec_mass"></span> kg</h3>
+  </div>
+  
+  
+</div>
+
+<script type="text/javascript">
+
+  var arr1 = []
+  var arr2 = []
+
+  for (var j = 0; j <1500; j++){
+    arr1.push(j)
+  }
+
+
+
+  function changeIX_Area(){
+		var card = document.getElementById("cstype");
+	    if (card.options[card.selectedIndex].value == 'Other') {
+	    	x=document.getElementById("ix")
+	    	y=document.getElementById("area")
+	    	if (x.style.display === "none" && y.style.display==='none') {
+			    x.style.display = "block";
+			    document.getElementById("ixlabel").innerHTML="Enter Ixx (m^4)";
+			    y.style.display = "block";
+			    document.getElementById("arealabel").innerHTML="C/s Area(m^2)";
+			  } else {
+			    x.style.display = "none";
+			    y.style.display = "none";
+			    document.getElementById("ixlabel").innerHTML="";
+			    document.getElementById("arealabel").innerHTML="";
+			  }
+	    }
+	}
+
+	
+
+function showResult(){
+
+
+  var x = document.getElementById("result");
+  if (x.style.display === "none"){
+    x.style.display = "block";
+  }
+
+
+  var Steel_Density= 7800
+  var Aluminium_Density= 2700
+  var Copper_Density= 8940
+
+  var Steel_E= 210*1000000000
+  var Aluminium_E= 70*1000000000
+  var Copper_E= 120*1000000000
+
+  if (document.getElementById('Steel').checked==true){
+    var density= Steel_Density
+    var E = Steel_E
+  }
+
+  else if (document.getElementById('Aluminium').checked==true){
+    var density= Aluminium_Density
+    var E= Aluminium_E
+  }
+
+  else if (document.getElementById('Copper').checked ==true){
+    var density= Copper_Density
+    var E= Copper_E
+  }
+
+  
+  if (document.getElementById('cstype').value=='circular'){
+    var csarea= 0.017672
+    var I = 0.0000248575//Math.PI*Math.pow(Math.sqrt(4*csarea/Math.PI), 4)/64
+  }
+
+  else if (document.getElementById('cstype').value=='square'){
+    var csarea= 0.0225
+    var I = 0.0000421875 // Math.pow(csarea,2)/12
+  }
+
+  else if (document.getElementById('cstype').value=='T Section'){
+    var I = 0.000005411
+    var csarea= 0.002888 
+  }
+
+  else if (document.getElementById('cstype').value=='Other'){
+    var I = document.getElementById('ix').value
+    var csarea = document.getElementById('area').value
+  }
+	
+  var beam_mass = density*csarea*(document.getElementById('length').value/1000)
+  var effective_mass= 0.23*beam_mass + Number(document.getElementById('end_mass').value)
+  var damping_rat= Number(document.getElementById('damping_factor').value)
+  var stiffness = Number((3*E*I)/Math.pow(((document.getElementById('length').value)/1000), 3))
+	var natural_circ_freq= Number(Math.sqrt(stiffness/(effective_mass)))
+  var damped_circ_freq= Number(natural_circ_freq*(1-(document.getElementById('damping_factor').value)**2)**0.5)
+  var crit_damp= Number(2*((effective_mass)*stiffness)**0.5)
+  var damping_coeff= Number(crit_damp*document.getElementById('damping_factor').value)
+  var logarithmic_dec= Number((2*Math.PI)/((1/document.getElementById('damping_factor').value)**2 - 1)**0.5)
+
+  console.log(Math.pow(document.getElementById('length').value, 3))
+  console.log(E)
+  console.log(I)
+  console.log(stiffness)
+
+  var t = Number(1)
+  var X = 0.5/1000
+
+  for (var i = 0; i < arr1.length; i++){
+    var t = arr1[i];
+    
+    var temp = Math.exp(-1 * damping_rat * natural_circ_freq * t/1000) * ( (X * Math.cos(damped_circ_freq * t/1000)) + ((damping_rat * natural_circ_freq * X * Math.sin(damped_circ_freq * t/1000)) / damped_circ_freq) );
+    
+    arr2.push(temp);
+
+  }
+  
+  console.log(arr1)
+  console.log(arr2)
+
+  document.getElementById("stiff_ness").innerHTML= Number(stiffness)
+  document.getElementById("natural_circular_freq").innerHTML= Number(natural_circ_freq)
+  document.getElementById("damping_ratio").innerHTML= Number(damping_rat)
+  document.getElementById("damped_circular_freq").innerHTML= Number(damped_circ_freq)
+  document.getElementById("critical_damping").innerHTML= Number(crit_damp)
+  document.getElementById("damping_coefficient").innerHTML= Number(damping_coeff)
+  document.getElementById("log_dec").innerHTML= Number(logarithmic_dec)
+  document.getElementById("effec_mass").innerHTML= Number(effective_mass)
+
+  var y = document.getElementById("line-chart")
+
+
+  const button = document.getElementById('button');
+  button.disabled = true;
+}
+
+var button = document.querySelector("button");
+
+
+button.addEventListener("click", function()
+  {
+        graphRender();
+  });
+
+let canvas = document.querySelector('canvas.test')
+let ctx = canvas.getContext('2d')
+
+
+function graphRender(){
+
+  ctx.clearRect(0,0,canvas.width,canvas.height)
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: arr1,
+            datasets: [{
+                label: 'Displacement',
+                backgroundColor: 'rgb(0,255,255)',
+                borderColor: 'rgb(0,255,255)',
+                data: arr2,
+                fill: false
+            },
+       
+    ]
+        },
+        options: {
+            tooltips:{
+                enabled: true
+            }
+        }
+  });
+  return 
+
+}
+
+
+
+
+
+</script>
+
+</body>
+</html>
